@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/TID-Lab/aggie.svg?branch=ci_test)](https://travis-ci.org/TID-Lab/aggie)
+
 # Aggie
 
 Aggie is a web application for using social media and other resources to track incidents around real-time events such as elections or natural disasters.
