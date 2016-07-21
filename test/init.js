@@ -30,6 +30,7 @@ before(function(done) {
 after(function(done) {
   database.mongoose.connection.db.dropDatabase(function() {
     database.mongoose.disconnect(function() {
+      console.log('disconnected');
       done();
     });
   });
