@@ -18,4 +18,8 @@ describe('routes', function() {
     expect($state.current.name).to.equal('login');
     expect($state.current.controller).to.equal('LoginController');
   }));
+
+  it('should transition to report');
+
+  it('should transition to batch');
 });
