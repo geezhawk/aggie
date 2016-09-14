@@ -4,11 +4,16 @@ var dbTools = require('../database-tools');
 var _ = require('lodash');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
+var Report = require('../../models/report');
 
 chai.use(chaiAsPromised);
 var expect = chai.expect;
 
 module.exports = _.clone(dbTools);
+
+module.exports.resetBrowser = function() {
+  browser.manage().deleteAllCookies();
+};
 
 module.exports.init = function() {
   browser.get(browser.baseUrl);
@@ -41,4 +46,13 @@ module.exports.logIn = function(username, password) {
   element(by.model('user.password')).sendKeys(password);
   element(by.css('[type="submit"]')).click();
   expect(browser.getCurrentUrl()).to.eventually.equal(browser.baseUrl + 'reports');
+};
+
+module.exports.makeReports = function(n, done) {
+  Report.create(_.map(_.range(n), function(i) {
+    return {
+      authoredAt: new Date(),
+      content: i
+    };
+  }), done);
 };
