@@ -51,13 +51,38 @@ module.exports.logIn = function(username, password) {
   return expect(browser.getCurrentUrl()).to.eventually.equal(browser.baseUrl + 'reports');
 };
 
-module.exports.makeReports = function(n) {
+module.exports.makeReports = function(n, author, time, content) {
   return function(done) {
     Report.create(_.map(_.range(n), function(i) {
       return {
-        authoredAt: new Date(),
-        content: i
+        author: author,
+        authoredAt: time ? new Date(time) : new Date(),
+        content: content ? i + ' ' + content : i
       };
     }), done);
   };
+};
+
+module.exports.setFilter = function(filter) {
+  var e = expect(browser.getCurrentUrl()).to.eventually.equal(browser.baseUrl + 'reports');
+  if (filter.keywords) {
+    element(by.model('searchParams.keywords')).sendKeys(filter.keywords);
+  }
+  if (filter.author) {
+    element(by.model('searchParams.author')).sendKeys(filter.author);
+  }
+  if (filter.time) {
+    // This will only work once: if you want to then change the filter the
+    // button will have different text and you'll have to select it some other
+    // way.
+    element(by.buttonText('Date/Time')).click();
+    // Also, it's important to do the 'before' time which is on the right of
+    // the modal, before the 'after' time, so that when we click Submit there
+    // isn't a dropdown covering the button.
+    element(by.model('times.before')).sendKeys(filter.time.before);
+    element(by.model('times.after')).sendKeys(filter.time.after);
+    element(by.buttonText('Submit')).click();
+  }
+  element(by.buttonText('Go')).click();
+  return e;
 };
