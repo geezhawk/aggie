@@ -70,3 +70,4 @@ Batches
 you can finish a batch and then you have no batch
 then you can click grab batch again and get a new batch
 from grab batch you can grab another
+if you grab a batch and someone else grabs a batch they don't overlap
