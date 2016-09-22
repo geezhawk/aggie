@@ -136,6 +136,7 @@ describe('grab batch', function() {
     });
 
     it('by keyword', function() {
+      this.slow(4000);
       var e1 = utils.setFilter({ keywords: 'bar' });
       var e2 = clickAndExpectFrom(by.buttonText('Grab Batch'), 8, keywordBar);
       return promise.all([e1, e2]);
