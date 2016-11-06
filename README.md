@@ -56,7 +56,7 @@ The following need to be installed.
       - Node Version Manager (nvm) allows multiple versions of node.js to be used on your system and manages the versions within each project.
       - After installing nvm:
       1. in your terminal, navigate to the aggie project directory: `cd [aggie]`.
-      2. use this command: `nvm use 0.10` to install the version specified in `.nvmrc`.
+      2. use this command: `nvm use` to install the version specified in `.nvmrc`.
 2. **Mongo DB** (requires >= 2.6, such as 2.6.9)
   1. Follow the [installation structions](https://docs.mongodb.org/v2.6/) for your operating system.
   2. Stop and restart Mongo DB.
@@ -101,6 +101,10 @@ The following need to be installed.
 4. To run end-to-end tests:
   1. first start Aggie on the test database with `npm run testrun`
   2. then run protractor with `npm run protractor`
+5. To run end-to-end tests with external APIs
+  1. Set up the appropriate keys in `secrets.json` (e.g. Twitter)
+  2. start Aggie on the test database with `npm run testrun`
+  3. run protractor with `npm run protractor-with-apis`
 
 ## Project Configuration
 You can adjust the settings in the `config/secrets.json` file to configure the application.
@@ -126,6 +130,11 @@ Set `config.adminParty=true` if you want to run tests.
   1. Visit your profile page (click the icon bearing your username in the top-right corner) and copy your API key (click 'Regenerate' if necessary).
 1. Go to Settings > Settings and edit the ELMO settings. Remember to toggle the switch on, once you have saved the settings.
 
+### Google Places
+Aggie uses Google Places for guessing locations in the application. To make it work:
+  1. You will need to get an API key from [Google API console](https://console.developers.google.com/) for [Google Places API](https://developers.google.com/places/documentation/).
+  1. Read about [Google API usage](https://developers.google.com/places/web-service/usage) limits and consider [whitelisting](https://support.google.com/googleapi/answer/6310037) your Aggie deployment to avoid surprises.
+  1. Go to Settings > Settings and edit the Google Places settings and add the key.
 
 ### Emails
   1. `fromEmail` is the email address from which system emails come. Also used for the default admin user.

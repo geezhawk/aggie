@@ -4,7 +4,7 @@ var utils = require('./init');
 var request = require('supertest');
 var expect = require('chai').expect;
 var async = require('async');
-var SMSGhContentService = require('../lib/fetching/content-services/smsgh-content-service');
+var SMSGhContentService = require('../../lib/fetching/content-services/smsgh-content-service');
 
 // This can be modified as more fields are added
 // Req corresponding to source 1
@@ -42,7 +42,7 @@ describe('SMSGhana content service', function() {
     });
 
     afterEach(function() {
-      service.unsubscribe();
+      service.unsubscribe('dummy');
     });
 
     it('should start the server and send 200 code', function(done) {
@@ -51,10 +51,7 @@ describe('SMSGhana content service', function() {
         .query(reqParams)
         .expect(200)
         .end(function(err, res) {
-          if (err) {
-            return done(err);
-          }
-          return done();
+          return done(err);
         });
     });
 
@@ -67,14 +64,11 @@ describe('SMSGhana content service', function() {
         .query(reqParams2)
         .expect(200)
         .end(function(err, res) {
-          if (err) {
-            return done(err);
-          }
-          return done();
+          return done(err);
         });
 
-      service.unsubscribe();
-      service.unsubscribe();
+      service.unsubscribe('dodo');
+      service.unsubscribe('bozo');
     });
 
     it('should generate reports for each new source correctly', function(done) {
@@ -136,15 +130,15 @@ describe('SMSGhana content service', function() {
             return done(err);
           }
         });
-        service.unsubscribe();
-        service.unsubscribe();
+      service.unsubscribe('dodo');
+      service.unsubscribe('bozo');
     });
 
     it('should remove one source but still listen to other sources', function(done) {
       service.subscribe('dodo');
       var bozoEventName = service.subscribe('bozo');
 
-      service.unsubscribe();
+      service.unsubscribe('bozo');
 
       async.parallel([
         function(callback) {
@@ -153,16 +147,16 @@ describe('SMSGhana content service', function() {
             expect(reportData.content).to.equal('lorem ipsum dolor');
             expect(reportData.author).to.equal('9845098450');
 
-          callback();
-        });
+            callback();
+          });
         },
         function(callback) {
           service.once(bozoEventName, function(reportData) {
             expect(reportData.authoredAt).to.eql(new Date('2016-09-01'));
             expect(reportData.content).to.equal('lorem ipsum dolor');
             expect(reportData.author).to.equal('9876543210');
-          callback();
-        });
+            callback();
+          });
         }
       ], done);
 
@@ -186,7 +180,7 @@ describe('SMSGhana content service', function() {
           }
         });
 
-      service.unsubscribe();
+      service.unsubscribe('dodo');
     });
 
 
@@ -204,9 +198,9 @@ describe('SMSGhana content service', function() {
       service.subscribe('dodo');
       service.subscribe('bozo');
 
-      service.unsubscribe();
-      service.unsubscribe();
-      service.unsubscribe();
+      service.unsubscribe('dummy');
+      service.unsubscribe('dodo');
+      service.unsubscribe('bozo');
 
       request('http://localhost:1111')
         .get('/smsghana')

@@ -37,12 +37,12 @@ angular.module('Aggie', ['ui.router', 'ui.bootstrap', 'ngResource',
 .run([
   '$rootScope', '$urlRouter', '$location', 'AuthService', '$state',
   'FlashService', '$cookies', '$translate',
-  function ($rootScope, $urlRouter, $location, AuthService, $state, flash,
+  function($rootScope, $urlRouter, $location, AuthService, $state, flash,
             $cookies, $translate) {
     $rootScope.$state = $state;
 
     var publicRoute = function(state) {
-      return !!(state.data && state.data.public === true)
+      return !!(state.data && state.data.public === true);
     };
 
     $rootScope.$on('$stateChangeSuccess', function(e, toState) {
@@ -90,7 +90,8 @@ require('./services/trend');
 require('./services/trend_fetching');
 require('./services/map');
 require('./services/batch');
-require('./services/media_modal');
+require('./services/api_modal');
+require('./services/tags');
 
 // Controllers
 require('./controllers/application');
@@ -108,8 +109,8 @@ require('./controllers/reports/show');
 require('./controllers/sources/form_modal');
 require('./controllers/sources/index');
 require('./controllers/sources/show');
-require('./controllers/media/settings');
-require('./controllers/media/settings/settings_modal');
+require('./controllers/api/settings');
+require('./controllers/api/settings_modal');
 require('./controllers/users/form_modal');
 require('./controllers/users/index');
 require('./controllers/users/profile');

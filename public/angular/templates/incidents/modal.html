@@ -57,7 +57,7 @@
             <label for="location" class="col-lg-2 control-label" translate>Location</label>
             <div class="col-lg-9">
               <input id="location" ng-autocomplete name="location" details="details" type="text" class="form-control" ng-model="incident.locationName">
-              <button type="button" class="btn-text" ng-show="minimalLatLng" ng-click="minimalLatLng = !minimalLatLng" translate>Edit coordinates...</button>
+              <button type="button" class="btn-text" ng-show="minimalLatLng" ng-click="minimalLatLng = false">{{ "Edit coordinates..." | translate }}</button>
             </div>
           </div>
 
@@ -82,6 +82,14 @@
               </div>
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="tags" class="col-lg-2 control-label" translate>Tags</label>
+            <div class="col-lg-9">
+              <input id="tags" name="tags" type="text" class="form-control" ng-model="incident.tags" ng-focus>
+            </div>
+          </div>
+
           <div class="form-group" ng-hide="minimal">
             <label for="user" class="col-lg-2 control-label" translate>Assign To</label>
             <div class="col-lg-9">

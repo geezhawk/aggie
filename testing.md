@@ -19,13 +19,14 @@ Logging in
 2. Log in as `admin` with default password [goes to `/reset_admin_password`]
 3. Reset admin password [goes to `/reports`]
 
-Sources and fetching
+Sources, APIs, and fetching
 --------------------
 
-1. Add Facebook API token and turn fetching on
-2. Create Facebook source `https://www.facebook.com/nytimes` [at least 50
+1. Add Google Places API and refresh the page
+. Add Facebook API token and turn fetching on
+3. Create Facebook source `https://www.facebook.com/nytimes` [at least 50
 reports show up, and no warnings]
-3. Create Facebook source `https://www.facebook.com/err102398-023894-1239084`
+4. Create Facebook source `https://www.facebook.com/err102398-023894-1239084`
 [this source gets an error and appears as `OFF` in `/sources`]
 
 Incidents
@@ -44,10 +45,13 @@ with the previously created incident]
 8. Add the reports to that incident [incident column updates]
 9. Go to `/incidents` [in `Title` column incident shows correct number of
 reports]
-10. Click `Create Incident` [modal appears]
-11. Begin typing `mac` in the location field [locations starting with `mac`
+10. View the incident you have just created [incident shows the 3 reports that were added]
+11. Flag one report in the incident view page [the report is flagged]
+12. Click `Create Incident` [modal appears]
+13. Begin typing `mac` in the location field [locations starting with `mac`
 should be suggested]
-12. Pick a a location, enter a title and save the incident [incident is saved successfully]
+14. Pick a a location, enter a title and save the incident [incident is saved successfully]
+
 
 Users and emails
 ----------------
@@ -64,3 +68,23 @@ Users and emails
 10. Select new password and login
 11. Click Settings [Users and not Settings appears in dropdown]
 12. Go to Settings > Users [only this user appears, cannot create new users]
+
+Batches
+-------
+
+Prerequisites: at least 1 incident, 2 users, and 21 reports.
+1. With at least 11 reports and at least 1 incident, go to `reports` and click
+`Grab Batch` [goes to /reports/batch]
+2. Click `Add` in the incident column of one report [modal appears showing
+the incidents already created]
+3. Click an incident [modal closes, text `Add` is updated to the name of the
+incident]
+4. Click `Mark All and Done` [goes back to /reports and the reports from the
+batch are marked as read]
+5. Navigate to `/reports/batch` [the previous batch is displayed, and the
+reports are marked as read]
+6. Navigate to `/reports` and click `Grab Batch` again [goes to `/reports/batch`
+and populates with some reports]
+7. Log in as a different user in a different tab/window
+8. Navigate to `/reports` as the second user and click `Grab Batch`. [reports
+are populated, and none of them are reports the other user has in their batch]

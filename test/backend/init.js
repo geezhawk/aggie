@@ -3,6 +3,8 @@
 process.env.NODE_ENV = 'test';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
+var util = require('util');
+var EventEmitter = require('events').EventEmitter;
 var dbTools = require('../database-tools');
 var Report = require('../../models/report');
 var User = require('../../models/user');
@@ -75,3 +77,42 @@ function expectToEmitError(listener, message, done) {
   });
 }
 module.exports.expectToEmitError = expectToEmitError;
+
+// Expect listener to emit warnings
+function expectToEmitWarning(listener, done) {
+  listener.once('warning', function(err) {
+    expect(err).to.be.an.instanceof(Error);
+    done();
+  });
+}
+module.exports.expectToEmitWarning = expectToEmitWarning;
+
+var EventCounter = function(emitter, eventName) {
+  var self = this;
+  this.num = 0;
+  this.emitter = emitter;
+  this.eventName = eventName;
+  this.listener = function() {
+    self.num++;
+    self.emit('new');
+  };
+  emitter.on(eventName, this.listener);
+};
+
+util.inherits(EventCounter, EventEmitter);
+
+EventCounter.prototype.waitForEvents = function(num, callback) {
+  var self = this;
+  if (this.num >= num) return setImmediate(callback);
+  this.on('new', function() {
+    if (self.num === num) {
+      setImmediate(callback);
+    }
+  });
+};
+
+EventCounter.prototype.kill = function() {
+  this.emitter.removeListener(this.eventName, this.listener);
+};
+
+module.exports.EventCounter = EventCounter;
