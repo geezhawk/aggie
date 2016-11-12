@@ -37,7 +37,7 @@ var sourceSchema = new mongoose.Schema({
   unreadErrorCount: { type: Number, default: 0 },
   lastReportDate: Date,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
-  tags: { type: String, required: false }
+  tags: { type: Array, default: [], required: false }
 });
 
 sourceSchema.pre('save', function(next) {

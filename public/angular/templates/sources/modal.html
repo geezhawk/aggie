@@ -53,15 +53,14 @@
             </div>
           </div>
 
-          <div class="form-group" ng-show="validSourceMedia(source))">
+          <div class="form-group" ng-show="source.media && validSourceMedia(source)">
             <label for="tags" class="col-lg-2 control-label" translate>Tags</label>
             <div class="col-lg-8">
-              <textarea ng-model="source.tags" class="form-control" id="tags" name="tags" placeholder="{{ 'Add tags' | translate }}">
-              </textarea>
+              <input ng-model="source.tags" class="form-control" id="tags" name="tags" placeholder="{{ 'Enter tags' | translate }}">
+              </input>
               <div class="help-block" translate="sources_modal.tags"></div>
-              </div>
             </div>
-          </div><!--form-group-->
+          </div>
 
           <div class="form-group" ng-show="source.media && source.media != 'twitter' && source.media != 'smsgh' && validSourceMedia(source)">
             <label for="url" class="col-lg-2 control-label" translate>URL</label>
