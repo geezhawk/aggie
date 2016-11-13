@@ -30,6 +30,12 @@ angular.module('Aggie')
       }
     };
 
+    $scope.removeTag = function(source, tag) {
+      console.log(source, tag);
+      i = source.tags.indexOf(tag);
+      source.tags.splice(i,1);
+    };
+
     $scope.viewSource = function(event, source) {
       $rootScope.$state.go('source', { id: source._id });
     };

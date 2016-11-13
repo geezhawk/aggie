@@ -35,6 +35,12 @@
       <td class="expand content">{{ target(s) }}</td>
       <td class="compact content zero-errors" ng-show="currentUser.can('edit data')"
           ng-class="{ 'multiple-errors': s.unreadErrorCount > 0 }">{{ s.unreadErrorCount }}</td>
+      <td ng-show="s.tags" class="compact content">
+        <span class="tag" ng-repeat="t in s.tags">
+          {{ t }}
+          <span ng-click="removeTag(s, t)" class="remove">[x]</span>
+        </span>
+      </td>
       <td class="compact status" ng-show="currentUser.can('edit data')">
         <aggie-toggle toggle="s.enabled" options="{ true: 'On', false: 'Off' }" on-change="saveSource(s)">
       </td>

@@ -3,6 +3,7 @@ $navbar-yellow: #eaef92;
 $link-blue: #24AEC8;
 $input-focus-outline: #66afe9;
 $gray: #aaaaaa;
+$lightgray: #e2e2e2;
 $blue: #5bc0de;
 $normal-weight: normal; // This is what the bootstrap style uses.
 $medium-weight: 400; // Not quite bold.
@@ -82,6 +83,12 @@ html {
   &.selected {
     background-color: #92c8dc;
   }
+}
+
+.tag {
+  padding: 4px;
+  margin: 0px 3px;
+  background-color: $lightgray;
 }
 
 .pager {
